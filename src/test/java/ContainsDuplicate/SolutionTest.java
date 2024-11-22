@@ -1,32 +1,32 @@
 package ContainsDuplicate;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static junit.framework.TestCase.assertEquals;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SolutionTest {
 
-    private Solution solution;
-
-    @Before
-    public void setUp(){ solution = new Solution(); }
-
-    @Test
-    public void stream_case1(){
-        int[] nums = {1, 2, 3, 3};
-
-        boolean actualResult = solution.hasDuplicate(nums);
-
-        assertEquals(true, actualResult);
+    public static Stream<TestCase> provideTestCases() {
+        return Stream.of(
+                new TestCase(new int[]{1, 2, 3, 3}, true),
+                new TestCase(new int[]{1, 2, 3, 4}, false)
+        );
     }
 
-    @Test
-    public void stream_case2(){
-        int[] nums = {1, 2, 3, 4};
-
-        boolean actualResult = solution.hasDuplicate(nums);
-
-        assertEquals(false, actualResult);
+    private record TestCase(int[] inputArray, boolean outputResult) {
     }
+
+    @ParameterizedTest
+    @MethodSource("provideTestCases")
+    void testContainsDuplicate(TestCase testCase) {
+        Solution solution = new Solution();
+        boolean result = solution.hasDuplicate(testCase.inputArray);
+
+        assertThat(result).isEqualTo(testCase.outputResult);
+    }
+
+
 }
