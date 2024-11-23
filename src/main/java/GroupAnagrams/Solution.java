@@ -29,11 +29,9 @@ public class Solution {
 
         var wordsTransformed = words.stream().map(this::streamTask).toList();
 
-        System.out.println(wordsTransformed);
-        for (int i = 0; i < words.size();i++) {
-            if (!solution.containsKey(wordsTransformed.get(i))) {
-                solution.put(wordsTransformed.get(i), new ArrayList<>());
-            }
+        for (int i = 0; i < words.size(); i++) {
+            solution.putIfAbsent(wordsTransformed.get(i), new ArrayList<>());
+
             solution.get(wordsTransformed.get(i)).add(words.get(i));
         }
         return solution.values().stream().toList();
