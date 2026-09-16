@@ -1,6 +1,7 @@
 package GroupAnagrams;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solution2{
     public List<List<String>> groupAnagrams(String[] strs) {
